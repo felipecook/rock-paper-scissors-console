@@ -1,13 +1,16 @@
-
-
-
-
-
-const playerSelection = 'Rock';
 let computerSelection = getComputerChoice();
+let playerWins = 0;
+let computerWins = 0;
+let buttons = document.querySelectorAll('.selectors');
 
+function whenPressed(e) {
+    console.log(e);
+    game(e.id);
+}
 
-
+buttons.forEach((button) => {
+    button.addEventListener('click', whenPressed(e))
+});
 
 
 function getRandomInt(max) {
@@ -18,63 +21,76 @@ function getComputerChoice() {
     let randNum = getRandomInt(3);
     switch (randNum) {
         case 0:
-            return 'Rock';
+            return 'rock';
             break;
         case 1:
-            return 'Paper';
+            return 'paper';
             break;
 
         case 2:
-            return 'Scissors';
+            return 'scissors';
             break;
         default:
             break;
     }
 }
 
-function playRound(playerSelection, computerSelection) {
-    if (playerSelection == computerSelection) {
-        return "Player and Computer Tie";
-    } else if (playerSelection == 'Rock' && computerSelection == 'Paper') {
-        return 'Player Loses';
-    } else if (playerSelection == 'Rock' && computerSelection == 'Scissors') {
-        return 'Player Wins';
+function playRound(computerSelection, playerSelection) {
+    switch (computerSelection) {
+        case "rock":
+            if (playerSelection == "rock") {
+                console.log("You tie!");
+                return "You tie!";
+            } else if (playerSelection == "paper") {
+                console.log("You win!");
+                return "You win!";
+            } else if (playerSelection == "scissors") {
+                console.log("You lose!");
+                return "You lose!";
+            } else {
+                console.log("invalid user entry!")
+                return "You fucked up!"
+            }
+        case "paper":
+            if (playerSelection == "rock") {
+                console.log("You lose!");
+                return "You lose!";
+            } else if (playerSelection == "paper") {
+                console.log("You tie!");
+                return "You tie!";
+            } else if (playerSelection == "scissors") {
+                console.log("You win!");
+                return "You win!";
+            } else {
+                console.log("invalid user entry!")
+                return "You fucked up!"
+            }
+        case "scissors":
+            if (playerSelection == "rock") {
+                console.log("You win!");
+                return "You win!";
+            } else if (playerSelection == "paper") {
+                console.log("You lose!");
+                return "You lose!";
+            } else if (playerSelection == "scissors") {
+                console.log("You tie!");
+                return "You tie!";
+            } else {
+                console.log("invalid user entry!")
+                return "You fucked up!"
+            }
+        default:
+            console.log("invalid user entry!")
+            return "You fucked up!"
     }
 
 }
 
 
-function game() {
-    let playerWins = 0;
-    let computerWins = 0;
 
-    for (let index = 0; index < 5; index++) {
-        let playerResponse = prompt("Write Paper, Scissors, or Rock");
-        let winLoseDraw = playRound(playerResponse, getComputerChoice());
-        switch (winLoseDraw) {
-            case 'Player and Computer Tie':
-                console.log('Tie');
-                break;
-            case 'Player Loses':
-                console.log('Player Loses');
-                computerWins++;
-                break;
-            case 'Player Wins':
-                console.log('Player Wins');
-                playerWins++;
-                break;
-            default:
-                break;
-        }
+function game(playerButtonSelection) {
 
-    }
-    if (playerWins > computerWins) {
-        console.log('Player Wins Game');
-    } else if (playerWins < computerWins) {
-        console.log('Player Loses Game');
-    } else {
-        console.log('Draw');
-    }
+    let winOrLose = playRound(computerSelection, playerButtonSelection);
+
+    console.log(winOrLose);
 }
-
-game();
