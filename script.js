@@ -1,16 +1,18 @@
 let computerSelection = getComputerChoice();
 let playerWins = 0;
 let computerWins = 0;
-let buttons = document.querySelectorAll('.selectors');
+let buttons = document.querySelectorAll('button');
 
 function whenPressed(e) {
-    console.log(e);
+    
     game(e.id);
 }
 
 buttons.forEach((button) => {
-    button.addEventListener('click', whenPressed(e))
-});
+    button.addEventListener('click', () => {
+        game(button.id);
+    })
+})
 
 
 function getRandomInt(max) {
